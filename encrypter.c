@@ -97,7 +97,7 @@ void update_shared_data(shared_data_t* shared, const char* password, const char*
 
 void wait_for_password_use(shared_data_t* shared) {
     time_t start = time(NULL);
-    while (1) {
+    while (true) {
         pthread_mutex_lock(&shared->mutex);
         if (shared->found) {
             pthread_mutex_unlock(&shared->mutex);
@@ -121,7 +121,7 @@ void* encrypter_thread(void* arg) {
     shared_data_t* shared = (shared_data_t*)arg;
     srand(time(NULL) ^ getpid());
 
-    while (1) {
+    while (true) {
         char *password = NULL, *key = NULL, *encrypted = NULL;
         if (!allocate_buffers(shared, &password, &key, &encrypted)) exit(EXIT_FAILURE);
 
