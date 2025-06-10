@@ -73,7 +73,7 @@ void attempt_decryption_loop(shared_data_t* shared, int client_id, int version, 
     char* output = (char*)malloc(len * DECRYPT_OUTPUT_BUFFER_MULTIPLIER);
     unsigned long iter = 0;
 
-    while (1) {
+    while (true) {
         pthread_mutex_lock(&shared->mutex);
         if (shared->found || version != shared->password_version) {
             pthread_mutex_unlock(&shared->mutex);
@@ -115,7 +115,7 @@ void* decrypter_thread(void* arg) {
 
     int my_version = 0;
 
-    while (1) {
+    while (true) {
         pthread_mutex_lock(&shared->mutex);
         while (my_version == shared->password_version) {
             pthread_cond_wait(&shared->cond_new_password, &shared->mutex);
